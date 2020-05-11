@@ -1,7 +1,7 @@
 <template>
   <a-card :bordered="false">
 
-    <a-tabs defaultActiveKey="2">
+    <a-tabs defaultActiveKey="1">
       <a-tab-pane key="1">
       <span slot="tab">
         <a-icon type="ordered-list" />订单列表
@@ -131,7 +131,7 @@ import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { getRoleList, getServiceList } from '@/api/manage'
+import { getInfos } from '@/api/orders'
 
 const statusMap = {
   0: {
@@ -170,45 +170,28 @@ export default {
       // 表头
       columns: [
         {
-          title: 'ID',
-          scopedSlots: { customRender: 'serial' }
+          title: 'URL',
+          dataIndex: 'path',
+          key: 'path'
         },
         {
-          title: '规则编号',
-          dataIndex: 'no'
+          title: '新闻缩略图',
+          dataIndex: 'image'
         },
         {
-          title: '描述',
-          dataIndex: 'description',
-          scopedSlots: { customRender: 'description' }
-        },
-        {
-          title: '服务调用次数',
-          dataIndex: 'callNo',
-          sorter: true,
-          needTotal: true,
-          customRender: (text) => text + ' 次'
-        },
-        {
-          title: '状态',
-          dataIndex: 'status',
-          scopedSlots: { customRender: 'status' }
-        },
-        {
-          title: '更新时间',
-          dataIndex: 'updatedAt',
-          sorter: true
+          title: '标题',
+          key: 'title',
+          dataIndex: 'title'
         },
         {
           title: '操作',
-          dataIndex: 'action',
-          width: '150px',
+          key: 'action',
           scopedSlots: { customRender: 'action' }
         }
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return getServiceList(Object.assign(parameter, this.queryParam))
+        return getInfos(Object.assign(parameter, this.queryParam))
           .then(res => {
             return res.result
           })
@@ -237,7 +220,7 @@ export default {
   },
   created () {
     this.tableOption()
-    getRoleList({ t: new Date() })
+    getInfos({ t: new Date() })
   },
   methods: {
     tableOption () {
