@@ -157,16 +157,13 @@ export default {
         result.then(r => {
           this.localPagination = this.showPagination && Object.assign({}, this.localPagination, {
             current: 1, // 返回结果中的当前分页数
-            total: 20, // 返回结果中的总记录数
+            total: 30, // 返回结果中的总记录数
             showSizeChanger: this.showSizeChanger,
             pageSize: (pagination && pagination.pageSize) ||
               this.localPagination.pageSize
           }) || false
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-
-          console.log('rrrrrrrrrrrrrrr=>', r)
-
-          if (r.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
+          if (r.length.data === 0 && this.showPagination && this.localPagination.current > 1) {
             this.localPagination.current--
             this.loadData()
             return
