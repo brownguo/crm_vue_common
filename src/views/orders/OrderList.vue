@@ -6,7 +6,6 @@
         <span slot="tab">
           <a-icon type="ordered-list" />订单列表
         </span>
-
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
             <a-row :gutter="48">
@@ -45,23 +44,27 @@
                   </a-form-item>
                 </a-col>
               </template>
-              <a-col :md="!advanced && 8 || 24" :sm="24">
-                  <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-                    <a-button type="primary">查询</a-button>
-                    <a-button style="margin-left: 8px">重置</a-button>
-                    <a @click="toggleAdvanced" style="margin-left: 8px">
-                      {{ advanced ? '收起' : '展开' }}
-                      <a-icon :type="advanced ? 'up' : 'down'"/>
-                    </a>
-            </span>
+              <a-col :md="8" :sm="24">
+                <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+                  <a-button type="primary">查询</a-button>
+                  <a-button style="margin-left: 8px">重置</a-button>
+                </span>
               </a-col>
             </a-row>
           </a-form>
         </div>
-
+        <a-modal
+          title="Let it go go ~"
+          :visible="visible"
+          :confirm-loading="confirmLoading"
+          @ok="handleOk"
+          @cancel="handleCancel"
+        >
+          <p>{{ dialogValue.title }}</p>
+        </a-modal>
         <a-table :columns="columns" :dataSource="data" :loading="tableLoding" :rowKey="record => record.path">
           <span slot="action" slot-scope="text, record">
-            <a @click="onEdit(record)">更改</a>
+            <a @click="showModal(record)">更改</a>
             <a-divider type="vertical" />
             <a>删除</a>
             <a-divider type="vertical" />
@@ -89,10 +92,10 @@ const columns = [
     dataIndex: 'path',
     key: 'path'
   },
-  {
-    title: '新闻缩略图',
-    dataIndex: 'image'
-  },
+  // {
+  //   title: '新闻缩略图',
+  //   dataIndex: 'image'
+  // },
   {
     title: '标题',
     key: 'title',
@@ -110,10 +113,14 @@ export default {
   data () {
     return {
       data: [],
+      queryParam: {},
       buttonLoading: false,
       tableLoding: true,
       advanced: false,
-      columns
+      columns,
+      confirmLoading: false,
+      visible: false,
+      dialogValue: {}
     }
   },
   created () {
@@ -127,20 +134,21 @@ export default {
         this.data = res.data.result
       })
     },
-    handleSearchButton () {
-      this.buttonLoading = true
-      const { $message } = this
-      getInfos(1234).then(res => {
-        this.buttonLoading = false
-        this.tableLoding = false
-        this.data = res.data.result
-      }).catch(err => {
-        $message.error(`load user err: ${err.message}`)
-      })
+    showModal (record) {
+      this.visible = true
+      this.dialogValue.title = record.title
     },
-    toggleAdvanced () {
-      this.advanced = !this.advanced
-      console.log(this.advanced)
+    handleOk (record) {
+      console.log(record)
+      this.confirmLoading = true
+      setTimeout(() => {
+        this.visible = false
+        this.confirmLoading = false
+      }, 2000)
+    },
+    handleCancel (e) {
+      console.log('Clicked cancel button')
+      this.visible = false
     },
     onEdit (value) {
       console.log(JSON.stringify(value))
