@@ -39,6 +39,48 @@ export const asyncRouterMap = [
           }
         ]
       },
+      {
+        path: '/orders',
+        name: 'orders',
+        redirect: '/orders/order-list/',
+        component: PageView,
+        meta: { title: '订单管理', keepAlive: true, icon: 'form', permission: [ 'form' ] },
+        children: [
+          {
+            path: '/orders/order-list',
+            name: 'OrderList',
+            component: () => import('@/views/orders/OrderList'),
+            meta: { title: '订单管理', keepAlive: true, permission: [ 'table' ] }
+          }
+        ]
+      },
+
+      {
+        path: '/snkrs',
+        name: 'snkrs',
+        component: PageView,
+        meta: { title: 'NikeSNKRS', icon: 'car', permission: [ 'form' ] },
+        children: [
+          {
+            path: '/snkrs/web-launch',
+            name: 'Launch',
+            component: () => import('@/views/snkrs/Launch'),
+            meta: { title: '新品预览', keepAlive: true, permission: [ 'table' ] }
+          },
+          {
+            path: '/snkrs/web-draw',
+            name: 'Draw',
+            component: () => import('@/views/snkrs/Draw'),
+            meta: { title: '抽签管理', keepAlive: true, permission: [ 'table' ] }
+          },
+          {
+            path: '/snkrs/web-active',
+            name: 'Active',
+            component: () => import('@/views/snkrs/Launch'),
+            meta: { title: '增加账号活跃度', keepAlive: true, permission: [ 'table' ] }
+          }
+        ]
+      },
 
       // forms
       {
@@ -64,21 +106,6 @@ export const asyncRouterMap = [
             name: 'AdvanceForm',
             component: () => import('@/views/form/advancedForm/AdvancedForm'),
             meta: { title: '高级表单', keepAlive: true, permission: [ 'form' ] }
-          }
-        ]
-      },
-
-      {
-        path: '/orders',
-        redirect: '/orders/base-form',
-        component: PageView,
-        meta: { title: '订单管理', icon: 'form', permission: [ 'form' ] },
-        children: [
-          {
-            path: '/orders/order-list/',
-            name: 'OrderList',
-            component: () => import('@/views/orders/OrderList'),
-            meta: { title: '订单管理', keepAlive: false, permission: [ 'table' ] }
           }
         ]
       },
