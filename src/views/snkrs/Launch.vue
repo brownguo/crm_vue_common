@@ -17,7 +17,7 @@
     <a-card
       style="margin-top: 24px"
       :bordered="false"
-      title="标准列表">
+      title="Launch">
 
       <div slot="extra">
         <a-radio-group v-model="status">
@@ -27,7 +27,7 @@
         </a-radio-group>
         <a-input-search style="margin-left: 16px; width: 272px;" />
       </div>
-      <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
+      <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: false, pageSize: 20, total: 1}">
         <a-list-item :key="index" v-for="(item, index) in data">
           <a-list-item-meta :description="item.description">
             <a-avatar slot="avatar" size="large" shape="square" :src="item.avatar"/>
