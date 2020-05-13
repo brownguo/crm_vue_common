@@ -25,7 +25,7 @@
           <a-radio-button value="processing">热卖中</a-radio-button>
           <a-radio-button value="waiting">预告</a-radio-button>
         </a-radio-group>
-        <a-input-search style="margin-left: 16px; width: 272px;" />
+        <!--<a-input-search style="margin-left: 16px; width: 272px;" />-->
       </div>
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: false, pageSize: 20, total: 1}">
         <a-list-item :key="index" v-for="(item, index) in data">
@@ -79,16 +79,7 @@ data.push({
     value: 90
   }
 })
-data.push({
-  title: 'Alipay',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-  description: '那是一种内在的东西， 他们到达不了，也无法触及的',
-  owner: '付晓晓',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 90
-  }
-})
+
 export default {
   name: 'Launch',
   components: {
@@ -102,8 +93,9 @@ export default {
   },
   methods: {
     edit (record) {
+      console.log(record)
       // mockdata
-      record.taskName = '测试'
+      record.taskName = record.description
       // mockend
       this.$dialog(TaskForm,
         // component props
