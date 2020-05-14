@@ -40,11 +40,26 @@ export const asyncRouterMap = [
         ]
       },
       {
+        path: '/richcat',
+        name: 'richcat',
+        redirect: '/orders/order-list/',
+        component: PageView,
+        meta: { title: '天猫冲茅台', keepAlive: true, icon: 'taobao', permission: [ 'form' ] },
+        children: [
+          {
+            path: '/orders/order-list',
+            name: 'OrderList',
+            component: () => import('@/views/orders/OrderList'),
+            meta: { title: '订单管理', keepAlive: true, permission: [ 'table' ] }
+          }
+        ]
+      },
+      {
         path: '/orders',
         name: 'orders',
         redirect: '/orders/order-list/',
         component: PageView,
-        meta: { title: 'Adidas中国', keepAlive: true, icon: 'form', permission: [ 'form' ] },
+        meta: { title: 'Adidas中国', keepAlive: true, icon: 'reddit', permission: [ 'form' ] },
         children: [
           {
             path: '/orders/order-list',

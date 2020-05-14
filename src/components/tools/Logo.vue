@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Brown Guo',
+      default: 'Riches！',
       required: false
     },
     showTitle: {
