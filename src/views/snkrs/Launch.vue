@@ -138,7 +138,8 @@ export default {
     },
     edit (record) {
       // mockdata
-      record.taskName = record.description
+      console.log(record)
+      record.taskName = record.id
       // mockend
       this.$dialog(TaskForm,
         // component props
